@@ -4,7 +4,7 @@ import List from "./List";
 
 import { connect } from "react-redux";
 
-import { addIngredients, deleteIngredients } from "../redux/actions/index";
+import { addIngredients } from "../redux/actions/index";
 
 class Main extends React.Component {
   constructor(props) {
