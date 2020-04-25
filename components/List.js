@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
-const List = (props) => {
+import { useSelector, useDispatch } from "react-redux";
+import { deleteIngredients } from "../redux/actions";
+
+const List = () => {
+  const ingredients = useSelector((state) => state.ingredients);
+  const dispatch = useDispatch();
   return (
     <View>
-      {props.ingredients.map((el, i) => {
+      {ingredients.map((el, i) => {
         return (
           <View
             style={{
@@ -17,6 +22,12 @@ const List = (props) => {
               <View style={styles.dot} />
               <Text>{el}</Text>
             </View>
+            <TouchableOpacity
+              style={{ width: 10, height: 10, backgroundColor: "red" }}
+              onPress={() => {
+                dispatch(deleteIngredients(i));
+              }}
+            ></TouchableOpacity>
           </View>
         );
       })}

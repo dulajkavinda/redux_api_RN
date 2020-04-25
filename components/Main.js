@@ -1,21 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { StyleSheet, View, Text, StatusBar, TextInput } from "react-native";
 import List from "./List";
 
 import { connect } from "react-redux";
 
+import { addIngredients, deleteIngredients } from "../redux/actions/index";
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredients: [],
       ingredient: "",
     };
   }
   handleAddIngredient = () => {
     if (this.state.ingredient.trim().length) {
+      this.props.addIngredients(this.state.ingredient);
       this.setState({
-        ingredients: this.state.ingredients.concat(this.state.ingredient),
         ingredient: "",
       });
     }
@@ -28,7 +29,7 @@ class Main extends React.Component {
         <Text style={styles.title}>{this.props.recipie}</Text>
         <View style={styles.small_container}>
           <Text style={styles.subtitle}>Ingredients</Text>
-          <List ingredients={this.state.ingredients} />
+          <List ingredients={this.props.ingredients} />
           <View style={styles.textinput_container}>
             <TextInput
               placeholder="Ingredient"
@@ -66,10 +67,16 @@ class Main extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { recipie: state.recipie };
+  return { recipie: state.recipie, ingredients: state.ingredients };
 };
 
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addIngredients: (text) => dispatch(addIngredients(text)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
 
 const styles = StyleSheet.create({
   small_container: {

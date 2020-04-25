@@ -1,7 +1,7 @@
 import { ADD_INGREDIENTS, DELETE_INGREDIENTS } from "../constants/actionTypes";
 
 const initialState = {
-  ingredients: [],
+  ingredients: ["sadwqd", "wdwqdw"],
   recipie: "Fruitsalads",
 };
 
